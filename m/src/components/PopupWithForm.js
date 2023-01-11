@@ -2,9 +2,9 @@ import '../index.css';
 
 function PopupWithForm(props) {
     return (
-        <section className="popup" id={`popup__${props.name}`}>
+        <section className={`popup ${props.isOpen && 'popup_opened'}`} id={`popup__${props.name}`}>
           <div className="popup__container">
-            <button className="popup__close" type="button"></button>
+            <button className="popup__close" type="button" onClick={props.onClose}></button>
             <h2 className="popup__title">{props.title}</h2>
             <form className="popup__form" name={`${props.name}-popup`}>
               {props.children}
