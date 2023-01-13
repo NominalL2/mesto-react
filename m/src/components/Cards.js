@@ -1,16 +1,20 @@
 function Cards(props) {
+
+    const handle = () => {
+        props.onOpenCard(props.card);
+    }
     return (
-        props.cards.map((card, i) => (
-            <div className="element" key={i}>
-                <img src={card.link} className="element__image" alt={card.name} />
-                <div className="element__group">
-                    <h2 className="element__name">{card.name}</h2>
-                    <button className="element__like" type="button"></button>
-                    <div className="element__counter">{card.likes.lenght}</div>
-                    <button className="element__trash" type="button"></button>
-                </div>
+
+        <div className="element">
+            <img src={props.card.link} className="element__image" alt={props.card.name} onClick={handle} />
+            <div className="element__group">
+                <h2 className="element__name">{props.card.name}</h2>
+                <button className="element__like" type="button"></button>
+                <div className="element__counter">{props.card.likes.length}</div>
+                <button className="element__trash" type="button"></button>
             </div>
-        ))
+        </div>
+
     )
 }
 

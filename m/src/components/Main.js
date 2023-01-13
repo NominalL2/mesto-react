@@ -47,7 +47,8 @@ function Main(props) {
                 <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
             </section>
             <section className="elements">
-            <Cards cards={cards} />
+                {cards.map((card, i) => (<Cards card={card} onOpenCard={props.onOpenCard} key={i} />))}
+
             </section>
         </main>
     );

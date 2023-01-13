@@ -8,25 +8,33 @@ import React from 'react';
 
 function App() {
 
-  const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isCardOpen, setIsCardOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
-  const handleEditAvatarClick = () => { setisEditAvatarPopupOpen(true); }
-  const handleEditProfileClick = () => { setisEditProfilePopupOpen(true); }
-  const handleAddPlaceClick = () => { setisAddPlacePopupOpen(true); }
+  const handleEditAvatarClick = () => { setIsEditAvatarPopupOpen(true) };
+  const handleEditProfileClick = () => { setIsEditProfilePopupOpen(true) };
+  const handleAddPlaceClick = () => { setIsAddPlacePopupOpen(true) };
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setIsCardOpen(true);
+  }
 
   const closeAllPopups = () => {
-    setisAddPlacePopupOpen(false);
-    setisEditProfilePopupOpen(false);
-    setisEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsCardOpen(false);
+    setSelectedCard({});
   }
 
   return (
     <>
       <div className="page">
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onOpenCard={handleCardClick} />
         <Footer />
         <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <input id="name-input" type="text" name="name" className="popup__input popup__input_name" minLength="2"
@@ -51,7 +59,7 @@ function App() {
             className="popup__input popup__input_avatar-src" required />
           <span className="avatar-src-input-error popup__avatar-src-input-error"></span>
         </PopupWithForm>
-        <ImagePopup />
+        <ImagePopup card={selectedCard} isOpen={isCardOpen} onClose={closeAllPopups} />
       </div>
       <template id="element">
         <div className="element">

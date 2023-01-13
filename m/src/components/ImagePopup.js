@@ -1,12 +1,12 @@
 import '../index.css';
 
-function ImagePopup() {
+function ImagePopup(props) {
     return (
-        <section className="popup" id="popup-card">
+        <section className={`popup ${props.isOpen && 'popup_opened'}`} id="popup-card">
             <div className="popup__content-card">
-                <img src="#" className="popup__image-card" />
-                <p className="popup__caption-card"></p>
-                <button className="popup__close" type="button"></button>
+                <img src={props.card.link} className="popup__image-card" />
+                <p className="popup__caption-card">{props.card.name}</p>
+                <button className="popup__close" type="button" onClick={props.onClose}></button>
             </div>
         </section>
     )
