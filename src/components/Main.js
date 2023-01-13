@@ -2,7 +2,7 @@ import '../index.css';
 import Avatar from '../images/profile/avatar.jpg';
 import React from 'react';
 import { api } from '../utils/Api.js';
-import Cards from './Cards.js';
+import Card from './Card.js';
 
 
 function Main(props) {
@@ -47,7 +47,7 @@ function Main(props) {
                 <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
             </section>
             <section className="elements">
-                {cards.map((card, i) => (<Cards card={card} onOpenCard={props.onOpenCard} key={i} />))}
+                {cards.map((card, i) => (<Card card={card} onOpenCard={props.onOpenCard} key={i} />))}
 
             </section>
         </main>

@@ -1,4 +1,4 @@
-function Cards(props) {
+function Card(props) {
 
     const handle = () => {
         props.onOpenCard(props.card);
@@ -18,4 +18,4 @@ function Cards(props) {
     )
 }
 
-export default Cards;
+export default Card;
