@@ -1,19 +1,19 @@
 import '../index.css';
 import Avatar from '../images/profile/avatar.jpg';
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../utils/Api.js';
 import Card from './Card.js';
 
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('Жак-Ив Кусто');
-    const [userDescription, setUserDescription] = React.useState('Исследователь океана');
-    const [userAvatar, setUserAvatar] = React.useState(Avatar);
+    const [userName, setUserName] = useState('Жак-Ив Кусто');
+    const [userDescription, setUserDescription] = useState('Исследователь океана');
+    const [userAvatar, setUserAvatar] = useState(Avatar);
 
-    const [cards, setCards] = React.useState([]);
+    const [cards, setCards] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         api.setProfileInfo()
             .then((res) => {
                 setUserName(res.name);
@@ -47,7 +47,7 @@ function Main(props) {
                 <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
             </section>
             <section className="elements">
-                {cards.map((card, i) => (<Card card={card} onOpenCard={props.onOpenCard} key={i} />))}
+                {cards.map((card) => (<Card card={card} onOpenCard={props.onOpenCard} key={card._id} />))}
 
             </section>
         </main>

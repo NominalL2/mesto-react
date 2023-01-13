@@ -4,15 +4,15 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
-import React from 'react';
+import { useState } from 'react';
 
 function App() {
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isCardOpen, setIsCardOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   const handleEditAvatarClick = () => { setIsEditAvatarPopupOpen(true) };
   const handleEditProfileClick = () => { setIsEditProfilePopupOpen(true) };
@@ -61,17 +61,6 @@ function App() {
         </PopupWithForm>
         <ImagePopup card={selectedCard} isOpen={isCardOpen} onClose={closeAllPopups} />
       </div>
-      <template id="element">
-        <div className="element">
-          <img src="#" className="element__image" alt="#" />
-          <div className="element__group">
-            <h2 className="element__name"></h2>
-            <button className="element__like" type="button"></button>
-            <div className="element__counter">0</div>
-            <button className="element__trash" type="button"></button>
-          </div>
-        </div>
-      </template>
     </>
   );
 }
