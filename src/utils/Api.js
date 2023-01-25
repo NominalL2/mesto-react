@@ -92,6 +92,15 @@ class Api {
       })
   }
 
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return this.putLike(id)
+    }
+    else {
+      return this.delLike(id)
+    }
+  }
+
   changeAvatar(src) {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
