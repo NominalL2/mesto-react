@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import { CurrentCardsContext } from '../context/CurrentCardsContext.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
 
@@ -49,12 +50,24 @@ function App() {
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-    .then(() => {
-      setCurrentCards((state) => state.filter(c => c._id !== card._id))
-    })
-    .catch((err) => {
-      console.log(err)
-    });
+      .then(() => {
+        setCurrentCards((state) => state.filter(c => c._id !== card._id))
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
+
+  function handleUpdateUser({ name, about }) {
+    api.sendProfileInfo(name, about)
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    closeAllPopups();
   }
 
   useEffect(() => {
@@ -85,14 +98,7 @@ function App() {
             <Header />
             <Main onCardDel={handleCardDelete} onCardLike={handleCardLike} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onOpenCard={handleCardClick} />
             <Footer />
-            <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-              <input id="name-input" type="text" name="name" className="popup__input popup__input_name" minLength="2"
-                maxLength="40" required />
-              <span className="name-input-error popup__name-input-error"></span>
-              <input id="status-input" type="text" name="status" className="popup__input popup__input_status" minLength="2"
-                maxLength="200" required />
-              <span className="status-input-error popup__status-input-error"></span>
-            </PopupWithForm>
+            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}></EditProfilePopup>
             <PopupWithForm name="add" title="Новое место" buttonName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
               <input id="card-name-input" type="text" name="card-name" placeholder="Название" defaultValue=""
                 className="popup__input popup__input_card-name" minLength="2" maxLength="30" required />
