@@ -9,6 +9,7 @@ import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import { CurrentCardsContext } from '../context/CurrentCardsContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 function App() {
 
@@ -70,6 +71,18 @@ function App() {
     closeAllPopups();
   }
 
+  function handleUpdateAvatar({ avatar }) {
+    api.changeAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    closeAllPopups();
+  }
+
   useEffect(() => {
     api.setProfileInfo()
       .then((res) => {
@@ -98,7 +111,7 @@ function App() {
             <Header />
             <Main onCardDel={handleCardDelete} onCardLike={handleCardLike} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onOpenCard={handleCardClick} />
             <Footer />
-            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}></EditProfilePopup>
+            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
             <PopupWithForm name="add" title="Новое место" buttonName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
               <input id="card-name-input" type="text" name="card-name" placeholder="Название" defaultValue=""
                 className="popup__input popup__input_card-name" minLength="2" maxLength="30" required />
@@ -109,11 +122,7 @@ function App() {
             </PopupWithForm>
             <PopupWithForm name="del" title="Вы уверены?" buttonName="Да">
             </PopupWithForm>
-            <PopupWithForm name="avatar-add" title="Обновить аватар" buttonName="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-              <input id="avatar-src-input" type="url" name="avatar-src" placeholder="Ссылка на картинку" defaultValue=""
-                className="popup__input popup__input_avatar-src" required />
-              <span className="avatar-src-input-error popup__avatar-src-input-error"></span>
-            </PopupWithForm>
+            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
             <ImagePopup card={selectedCard} isOpen={isCardOpen} onClose={closeAllPopups} />
           </div>
 
